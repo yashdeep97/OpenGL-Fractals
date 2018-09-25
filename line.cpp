@@ -1,4 +1,5 @@
 #include <iostream>
+#include <bits/stdc++.h>
 
 #include <GLFW/glfw3.h>
 
@@ -49,7 +50,7 @@ int main(void)
 		// glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        drawLine(200, 200, 200, 400);
+        drawLine(0, 400, 50, 0);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
@@ -87,43 +88,84 @@ void drawPoint(int x, int y){
 }
 
 void drawLine(int x1, int y1, int x2, int y2){
+
     int dx = x2 - x1;
     int dy = y2 - y1;
     //when slope is between 0 and 1
-    if( dx > dy ){
-        int d = 2 * dy - dx;
-        int incrE = 2 * dy;
-        int incrNE = 2 * ( dy - dx );
-        int x = x1, y = y1;
-        drawPoint( x, y );
-        while( x < x2 ){
-            if( d <= 0 ){
-                d += incrE;
-                x++;
-            } else {
-                d += incrNE;
-                x++;
-                y++;
-            }
+    if( abs( dx ) >= abs( dy ) ){
+        if( dy >= 0 ){
+            int d = 2 * dy - dx;
+            int incrE = 2 * dy;
+            int incrNE = 2 * ( dy - dx );
+            int x = x1, y = y1;
             drawPoint( x, y );
+            while( x < x2 ){
+                if( d <= 0 ){
+                    d += incrE;
+                    x++;
+                } else {
+                    d += incrNE;
+                    x++;
+                    y++;
+                }
+                drawPoint( x, y );
+            }
+        } else {            
+            int d = 2 * dy + dx;
+            int incrE = 2 * dy;
+            int incrSE = 2 * ( dy + dx );
+            int x = x1, y = y1;
+            drawPoint( x, y );
+            while( x < x2 ){
+                if( d > 0 ){
+                    d += incrE;
+                    x++;
+                } else {
+                    d += incrSE;
+                    x++;
+                    y--;
+                }
+                drawPoint( x, y );
+            }
         }
+        
     } else {
-        int d = 2 * dx - dy;
-        int incrN = 2 * dx;
-        int incrNE = 2 * ( dx - dy );
-        int x = x1, y = y1;
-        drawPoint( x, y );
-        while( y < y2 ){
-            if( d <= 0 ){
-                d += incrN;
-                y++;
-            } else {
-                d += incrNE;
-                x++;
-                y++;
-            }
+        if( dy >= 0 ){
+            int d = 2 * dx - dy;
+            int incrN = 2 * dx;
+            int incrNE = 2 * ( dx - dy );
+            int x = x1, y = y1;
             drawPoint( x, y );
+            while( y < y2 ){
+                if( d <= 0 ){
+                    d += incrN;
+                    y++;
+                } else {
+                    d += incrNE;
+                    x++;
+                    y++;
+                }
+                drawPoint( x, y );
+            }
+        } else {
+            int d = -2 * dx - dy;
+            int incrS = -2 * dx;
+            int incrSE = -2 * ( dx + dy );
+            int x = x1, y = y1;
+            drawPoint( x, y );
+            while( y > y2 ){
+                if( d <= 0 ){
+                    d += incrSE;
+                    y--;
+                    x++;
+                } else {
+                    d += incrS;
+                    y--;
+                }
+                drawPoint( x, y );
+            }
         }
+        
     }
     
 }
