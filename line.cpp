@@ -52,7 +52,7 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT);
 
         drawLine(400, 0, 0, 100);
-        drawCircle(400,400,5); // drawCircle(x center , y center , radius)
+        drawCircle(400,300,100); // drawCircle(x center , y center , radius)
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
@@ -115,14 +115,14 @@ void drawCircle(int xc , int yc , int radius){
 }
 
 void draw_eight_points(int xc , int yc , int x , int y){
-	drawPoint(xc + x , xy + y) ;
-	drawPoint(xc - x , xy + y) ;
-	drawPoint(xc + x , xy - y) ;
-	drawPoint(xc - x , xy - y) ;
-	drawPoint(xc + y , xy + x) ;
-	drawPoint(xc + y , xy - x) ;
-	drawPoint(xc - y , xy + x) ;
-	drawPoint(xc - y , xy - x) ;
+	drawPoint(xc + x , yc + y) ;
+	drawPoint(xc - x , yc + y) ;
+	drawPoint(xc + x , yc - y) ;
+	drawPoint(xc - x , yc - y) ;
+	drawPoint(xc + y , yc + x) ;
+	drawPoint(xc + y , yc - x) ;
+	drawPoint(xc - y , yc + x) ;
+	drawPoint(xc - y , yc - x) ;
 }
 
 void drawLine(int x1, int y1, int x2, int y2){
