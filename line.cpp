@@ -14,6 +14,7 @@ void drawPoint(int x, int y);
 void drawLine(int x1, int y1, int x2, int y2);
 void drawCircle(int xCenter , int yCenter , int radius);
 void draw_eight_points(int xCenter , int yCenter , int x , int y);
+void drawImage();
 int main(void)
 {
     GLFWwindow* window;
@@ -51,8 +52,8 @@ int main(void)
 		// glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        drawLine(400, 0, 0, 100);
-        drawCircle(400,300,100); // drawCircle(x center , y center , radius)
+        drawImage();
+        
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
@@ -126,10 +127,10 @@ void draw_eight_points(int xc , int yc , int x , int y){
 }
 
 void drawLine(int x1, int y1, int x2, int y2){
-    if(x1 > x2 && y1 > y2){
+    if(x1 > x2 && y1 >= y2){
         swap(x1, x2);
         swap(y1, y2);
-    } else if(x1 > x2 && y2 > y1){
+    } else if(x1 > x2 && y2 >= y1){
         swap(x1, x2);
         swap(y1, y2);
     }
@@ -216,4 +217,25 @@ void drawLine(int x1, int y1, int x2, int y2){
         
     }
     
+}
+
+void drawImage(){
+    drawLine(100,100,250,400);
+    drawLine(250,400,300,400);
+    drawLine(300,400,300,150);
+    drawLine(300,150,250,150);
+    drawLine(250,150,250,200);
+    drawLine(250,200,205,200);
+    drawLine(205,200,150,100);
+    drawLine(150,100,100,100);
+
+    drawLine(250,240,250,310);
+    drawLine(250,310,215,240);
+    drawLine(215,240,250,240);
+
+    drawLine(250,250,300,220);
+    drawLine(250,190,300,220);
+
+    drawCircle(235,240,120);
+    drawCircle(235,240,160);
 }
