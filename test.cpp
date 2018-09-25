@@ -1,12 +1,11 @@
 #include <iostream>
 
-#include <GL/glut.h>
-
 #include <GLFW/glfw3.h>
 
 using namespace std;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height); 
+void processInput(GLFWwindow *window);
 
 int main(void)
 {
@@ -34,11 +33,14 @@ int main(void)
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
+		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
+		// handle escape key press
+		processInput(window);
         /* Poll for and process events */
         glfwPollEvents();
     }
@@ -50,6 +52,12 @@ int main(void)
 // Re-adjust Viewport size when window is resized
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-	cout<<height<<" "<<width<<endl;
+	// cout<<height<<" "<<width<<endl;
     glViewport(0, 0, width, height);
 } 
+
+void processInput(GLFWwindow *window)
+{
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+        glfwSetWindowShouldClose(window, true);
+}
