@@ -97,8 +97,9 @@ void drawLine(int x1, int y1, int x2, int y2){
     }
     int dx = x2 - x1;
     int dy = y2 - y1;
-    //when slope is between 0 and 1
+    //when modulus of slope is between 0 and 1
     if( abs( dx ) >= abs( dy ) ){
+        //slope is between 0 and 1
         if( dy >= 0 ){
             int d = 2 * dy - dx;
             int incrE = 2 * dy;
@@ -116,6 +117,7 @@ void drawLine(int x1, int y1, int x2, int y2){
                 }
                 drawPoint( x, y );
             }
+        //slope beween -1 and 0
         } else {            
             int d = 2 * dy + dx;
             int incrE = 2 * dy;
@@ -134,8 +136,9 @@ void drawLine(int x1, int y1, int x2, int y2){
                 drawPoint( x, y );
             }
         }
-        
+     
     } else {
+        //slope is greater than 1
         if( dy >= 0 ){
             int d = 2 * dx - dy;
             int incrN = 2 * dx;
@@ -153,6 +156,7 @@ void drawLine(int x1, int y1, int x2, int y2){
                 }
                 drawPoint( x, y );
             }
+        //slope is less than -1
         } else {
             int d = -2 * dx - dy;
             int incrS = -2 * dx;
