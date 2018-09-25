@@ -12,7 +12,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 void drawPoint(int x, int y);
 void drawLine(int x1, int y1, int x2, int y2);
-
+void drawCircle(int xCenter , int yCenter , int radius);
+void draw_eight_points(int xCenter , int yCenter , int x , int y);
 int main(void)
 {
     GLFWwindow* window;
@@ -51,7 +52,7 @@ int main(void)
         glClear(GL_COLOR_BUFFER_BIT);
 
         drawLine(400, 0, 0, 100);
-
+        drawCircle(400,400,5); // drawCircle(x center , y center , radius)
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
@@ -85,6 +86,43 @@ void drawPoint(int x, int y){
     glVertexPointer( 2, GL_INT, 0, point );
     glDrawArrays( GL_POINTS, 0, 1);
     glDisableClientState( GL_VERTEX_ARRAY );
+}
+
+void drawCircle(int xc , int yc , int radius){
+	int x = 0 ;
+	int y = radius ;
+	int d = 1 - radius ;
+	int deltaE = 3 ;
+	int deltaSE = -2 * radius + 5 ;
+
+	draw_eight_points(xc , yc , 0 , 0 ) ;
+
+	while(y >x ){
+		if(d < 0){ // selects E 
+			d += deltaE ;
+			deltaE += 2 ;
+			deltaSE += 2 ;
+		}
+		else{ // selects SE 
+			d += deltaSE ; 
+			deltaSE += 4 ;
+			deltaE += 2 ;
+			y -- ;
+		}
+		x ++ ;
+		draw_eight_points(xc , yc , x , y ) ;
+	}
+}
+
+void draw_eight_points(int xc , int yc , int x , int y){
+	drawPoint(xc + x , xy + y) ;
+	drawPoint(xc - x , xy + y) ;
+	drawPoint(xc + x , xy - y) ;
+	drawPoint(xc - x , xy - y) ;
+	drawPoint(xc + y , xy + x) ;
+	drawPoint(xc + y , xy - x) ;
+	drawPoint(xc - y , xy + x) ;
+	drawPoint(xc - y , xy - x) ;
 }
 
 void drawLine(int x1, int y1, int x2, int y2){
