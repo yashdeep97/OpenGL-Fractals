@@ -50,7 +50,7 @@ int main(void)
 		// glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        drawLine(0, 400, 50, 0);
+        drawLine(400, 0, 0, 100);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
@@ -88,7 +88,13 @@ void drawPoint(int x, int y){
 }
 
 void drawLine(int x1, int y1, int x2, int y2){
-
+    if(x1 > x2 && y1 > y2){
+        swap(x1, x2);
+        swap(y1, y2);
+    } else if(x1 > x2 && y2 > y1){
+        swap(x1, x2);
+        swap(y1, y2);
+    }
     int dx = x2 - x1;
     int dy = y2 - y1;
     //when slope is between 0 and 1
