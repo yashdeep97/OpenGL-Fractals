@@ -1,6 +1,5 @@
 #include <iostream>
-#include <bits/stdc++.h>
-
+#include <stdlib.h>
 #include <GLFW/glfw3.h>
 
 #define SCREEN_WIDTH 640
@@ -35,7 +34,7 @@ int main(void)
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
 
-	glViewport(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT);
+    glViewport(0.0f, 0.0f, SCREEN_WIDTH, SCREEN_HEIGHT);
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
     // New coordinate system
@@ -58,7 +57,7 @@ int main(void)
         glfwSwapBuffers(window);
 
 		// handle escape key press
-		processInput(window);
+        processInput(window);
         /* Poll for and process events */
         glfwPollEvents();
     }
@@ -116,14 +115,14 @@ void drawCircle(int xc , int yc , int radius){
 }
 
 void draw_eight_points(int xc , int yc , int x , int y){
-	drawPoint(xc + x , yc + y) ;
-	drawPoint(xc - x , yc + y) ;
-	drawPoint(xc + x , yc - y) ;
-	drawPoint(xc - x , yc - y) ;
-	drawPoint(xc + y , yc + x) ;
-	drawPoint(xc + y , yc - x) ;
-	drawPoint(xc - y , yc + x) ;
-	drawPoint(xc - y , yc - x) ;
+    drawPoint(xc + x , yc + y) ;
+    drawPoint(xc - x , yc + y) ;
+    drawPoint(xc + x , yc - y) ;
+    drawPoint(xc - x , yc - y) ;
+    drawPoint(xc + y , yc + x) ;
+    drawPoint(xc + y , yc - x) ;
+    drawPoint(xc - y , yc + x) ;
+    drawPoint(xc - y , yc - x) ;
 }
 
 void drawLine(int x1, int y1, int x2, int y2){
