@@ -4,6 +4,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <GLFW/glfw3.h>
+
 using namespace std;
 
 class Basics{
@@ -147,4 +148,5 @@ class Basics{
             }
         }   
 };
+
 #endif

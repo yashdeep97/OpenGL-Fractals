@@ -1,6 +1,6 @@
 #include "basics.h"
-#include <algorithm>
-#include <string.h>
+#include "turtle.h"
+#include <string>
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
@@ -9,9 +9,8 @@ using namespace std;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height); 
 void processInput(GLFWwindow *window);
-void drawPattern(int,int,int);
 
-Basics basics;
+void drawPattern(Turtle& turt, int l);
 
 int main(void)
 {
@@ -52,8 +51,9 @@ int main(void)
         
 		// glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
-        drawPattern(250,250,200);
+        Turtle turt;
+        turt.setPosition(320,0,90);
+        drawPattern(turt, 100);
         
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
@@ -81,12 +81,16 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 }
 
-void drawPattern(int x, int y, int d){
-    basics.drawCircle(x,y,d/2);
-    if(d>10){
-        drawPattern(x+d/2, y, d/2);
-        drawPattern(x-d/2, y, d/2);
-        drawPattern(x, y+d/2, d/2);
-        drawPattern(x, y-d/2, d/2);
+void drawPattern(Turtle& turt, int l){
+
+    turt.forward(l);
+    if(l>1){
+        turt.pushState();
+        turt.turnRight(30);
+        drawPattern(turt,l*0.7);
+
+        turt.popState();
+        turt.turnLeft(30);
+        drawPattern(turt, l*0.7);
     }
 }
