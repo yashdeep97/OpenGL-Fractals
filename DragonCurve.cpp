@@ -1,16 +1,16 @@
 #include "basics.h"
 #include "turtle.h"
 #include <string>
+#include <unistd.h>
 
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
-
-using namespace std;
+#define SCREEN_WIDTH 1000
+#define SCREEN_HEIGHT 1000
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height); 
 void processInput(GLFWwindow *window);
 
-void drawPattern(Turtle& turt, int l);
+void nextGeneration(string&);
+void drawPatternFromString(string);
 
 int main(void)
 {
@@ -21,7 +21,7 @@ int main(void)
         return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Dragon Curve", NULL, NULL);
     if (window == NULL)
     {
 		cout<<"Failed to create window"<<endl;
@@ -41,20 +41,21 @@ int main(void)
 
 	// glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     
-    string axiom = "A";
-
-
+    string axiom = "F";
+    int i=0;
+    
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
-        
 		// glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        Turtle turt;
-        turt.setPosition(320,0,90);
-        drawPattern(turt, 100);
-        
+        drawPatternFromString(axiom);
+        if(i<15){
+            nextGeneration(axiom);
+            i++;
+            sleep(1);
+        }
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
@@ -81,16 +82,46 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 }
 
-void drawPattern(Turtle& turt, int l){
+void nextGeneration(string& str){
+    int i = 0;
+    string newstr = "";
+    while(i < str.length()){
+        if(str[i] == 'F'){
+            newstr += "F+H";
+        }else if(str[i] == 'H'){
+            newstr += "F-H";
+        } else {
+            newstr += str[i];
+        }
+        i++;
+    }
+    str = newstr;
+    
+}
 
-    turt.forward(l);
-    if(l>1){
-        turt.pushState();
-        turt.turnRight(30);
-        drawPattern(turt,l*0.7);
-
-        turt.popState();
-        turt.turnLeft(30);
-        drawPattern(turt, l*0.7);
+void drawPatternFromString(string str){
+    
+    Turtle turt;
+    turt.setPosition(500,500,90);
+    stack <int> lengthStack;
+    int length = 2;
+    float colorVar = 0.0;
+    for(int i = 0; i < str.length(); i++)
+    {
+        if(str[i] == 'F' || str[i] == 'H'){
+            turt.forward(length);
+        } else if(str[i] == '+'){
+            turt.turnRight(90);
+        } else if(str[i] == '-'){
+            turt.turnLeft(90);
+        } else if(str[i] == '['){
+            turt.pushState();
+        } else if(str[i] == ']'){
+            turt.popState();
+        }
+        if((float)i > (float)str.length() * colorVar ){
+            turt.changeColor( (0.0 + colorVar), abs(0.5 - colorVar), (1.0 - colorVar));
+            colorVar += 0.1;
+        }
     }
 }

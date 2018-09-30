@@ -52,6 +52,9 @@ class Turtle{
             angle = newCurr.a;
             saved.pop();
         }
+        void changeColor(GLfloat r, GLfloat g, GLfloat b){
+            basics.setColor(r, g, b);
+        }
 
 };
 
