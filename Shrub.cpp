@@ -2,6 +2,7 @@
 #include "turtle.h"
 #include <string>
 #include <unistd.h>
+#include <time.h>
 
 #define SCREEN_WIDTH 1000
 #define SCREEN_HEIGHT 1000
@@ -15,13 +16,13 @@ void drawPatternFromString(string);
 int main(void)
 {
     GLFWwindow* window;
-
+    srand(time(0));
     /* Initialize the library */
     if (!glfwInit())
         return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Dragon Curve", NULL, NULL);
+    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Shrub", NULL, NULL);
     if (window == NULL)
     {
 		cout<<"Failed to create window"<<endl;
@@ -51,7 +52,7 @@ int main(void)
 		// glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         drawPatternFromString(axiom);
-        if(i<15){
+        if(i<5){
             nextGeneration(axiom);
             i++;
             sleep(1);
@@ -87,9 +88,7 @@ void nextGeneration(string& str){
     string newstr = "";
     while(i < str.length()){
         if(str[i] == 'F'){
-            newstr += "F+H";
-        }else if(str[i] == 'H'){
-            newstr += "F-H";
+            newstr += "AFF-[B-F+F+F]+[C+F-F-F]";
         } else {
             newstr += str[i];
         }
@@ -102,25 +101,33 @@ void nextGeneration(string& str){
 void drawPatternFromString(string str){
     
     Turtle turt;
-    turt.setPosition(500,500,90);
-    int length = 2;
-    float colorVar = 0.0;
+    turt.setPosition(500,0,90);
+    stack <int> lengthStack;
+    int length = 6;
     for(int i = 0; i < str.length(); i++)
     {
-        if(str[i] == 'F' || str[i] == 'H'){
+        if(str[i] == 'F'){
             turt.forward(length);
+        } else if(str[i] == 'A'){
+            turt.changeColor(0.647059, 0.164706, 0.164706);
+        } else if(str[i] == 'B'){
+            turt.changeColor(0.0, 1.0, 0.0);
+        } else if(str[i] == 'C'){
+            turt.changeColor(0.0, 0.5, 0.0);
         } else if(str[i] == '+'){
-            turt.turnRight(90);
+            turt.turnRight(22);
         } else if(str[i] == '-'){
-            turt.turnLeft(90);
+            turt.turnLeft(22);
         } else if(str[i] == '['){
             turt.pushState();
+            lengthStack.push(length);
         } else if(str[i] == ']'){
             turt.popState();
+            length = lengthStack.top();
+            lengthStack.pop();
         }
-        if((float)i > (float)str.length() * colorVar ){
-            turt.changeColor( (0.0 + colorVar), abs(0.5 - colorVar), (1.0 - colorVar));
-            colorVar += 0.1;
-        }
+        
+        
+        
     }
 }

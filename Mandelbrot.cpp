@@ -2,6 +2,7 @@
 #include "turtle.h"
 #include <string>
 #include <unistd.h>
+#include <time.h>
 
 #define SCREEN_WIDTH 1000
 #define SCREEN_HEIGHT 1000
@@ -10,18 +11,18 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void processInput(GLFWwindow *window);
 
 void nextGeneration(string&);
-void drawPatternFromString(string);
+void drawPatternFromString(string,int,int);
 
 int main(void)
 {
     GLFWwindow* window;
-
+    srand(time(0));
     /* Initialize the library */
     if (!glfwInit())
         return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Dragon Curve", NULL, NULL);
+    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Shrub", NULL, NULL);
     if (window == NULL)
     {
 		cout<<"Failed to create window"<<endl;
@@ -41,7 +42,7 @@ int main(void)
 
 	// glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     
-    string axiom = "F";
+    string axiom = "F-F-F-F-F";
     int i=0;
     
     /* Loop until the user closes the window */
@@ -50,8 +51,8 @@ int main(void)
         /* Render here */
 		// glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-        drawPatternFromString(axiom);
-        if(i<15){
+        drawPatternFromString(axiom,300,600);
+        if(i<4){
             nextGeneration(axiom);
             i++;
             sleep(1);
@@ -87,40 +88,41 @@ void nextGeneration(string& str){
     string newstr = "";
     while(i < str.length()){
         if(str[i] == 'F'){
-            newstr += "F+H";
-        }else if(str[i] == 'H'){
-            newstr += "F-H";
+            newstr += "F-F++F+F-F-F";
         } else {
             newstr += str[i];
         }
         i++;
     }
     str = newstr;
-    
 }
 
-void drawPatternFromString(string str){
+void drawPatternFromString(string str, int x, int y){
     
     Turtle turt;
-    turt.setPosition(500,500,90);
-    int length = 2;
-    float colorVar = 0.0;
+    turt.setPosition(x,y,0);
+    int length = 5;
     for(int i = 0; i < str.length(); i++)
     {
-        if(str[i] == 'F' || str[i] == 'H'){
+        if(str[i] == 'F'){
             turt.forward(length);
+        } else if(str[i] == 'A'){
+            turt.changeColor(0.647059, 0.164706, 0.164706);
+        } else if(str[i] == 'B'){
+            turt.changeColor(0.0, 1.0, 0.0);
+        } else if(str[i] == 'C'){
+            turt.changeColor(0.0, 0.5, 0.0);
         } else if(str[i] == '+'){
-            turt.turnRight(90);
+            turt.turnRight(72);
         } else if(str[i] == '-'){
-            turt.turnLeft(90);
+            turt.turnLeft(72);
         } else if(str[i] == '['){
             turt.pushState();
         } else if(str[i] == ']'){
             turt.popState();
         }
-        if((float)i > (float)str.length() * colorVar ){
-            turt.changeColor( (0.0 + colorVar), abs(0.5 - colorVar), (1.0 - colorVar));
-            colorVar += 0.1;
-        }
+        
+        
+        
     }
 }

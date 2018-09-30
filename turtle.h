@@ -55,6 +55,12 @@ class Turtle{
         void changeColor(GLfloat r, GLfloat g, GLfloat b){
             basics.setColor(r, g, b);
         }
+        void changeWidth(GLdouble w){
+            basics.setWidth(w);
+        }
+        void makeCircle(int r){
+            basics.drawCircle(currentX, currentY, r);
+        }
 
 };
 

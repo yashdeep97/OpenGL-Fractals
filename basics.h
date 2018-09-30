@@ -10,6 +10,7 @@ using namespace std;
 class Basics{
     private:
         GLfloat r = 1.0, g = 1.0, b = 1.0;
+        GLdouble w = 1.0;
     public:
         void setColor(GLfloat red, GLfloat green, GLfloat blue){
             r = red;
@@ -17,10 +18,14 @@ class Basics{
             b = blue;
         }
 
+        void setWidth(GLdouble width){
+            w = width;
+        }
+
         void drawPoint(int x, int y){
             int point[] = { x, y };
             glEnableClientState( GL_VERTEX_ARRAY ); //enable drawing vertex array
-            // glPointSize(40.0);
+            glPointSize(w);
             glColor3f(r, g, b);
             glVertexPointer( 2, GL_INT, 0, point );
             glDrawArrays( GL_POINTS, 0, 1);
