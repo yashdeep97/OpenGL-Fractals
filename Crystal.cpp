@@ -42,7 +42,7 @@ int main(void)
 
 	// glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     
-    string axiom = "F-F-F-F-F";
+    string axiom = "F+F+F+F";
     int i=0;
     
     /* Loop until the user closes the window */
@@ -88,7 +88,7 @@ void nextGeneration(string& str){
     string newstr = "";
     while(i < str.length()){
         if(str[i] == 'F'){
-            newstr += "F-F++F+F-F-F";
+            newstr += "FF+F++F+F";
         } else {
             newstr += str[i];
         }
@@ -106,16 +106,10 @@ void drawPatternFromString(string str, int x, int y){
     {
         if(str[i] == 'F'){
             turt.forward(length);
-        } else if(str[i] == 'A'){
-            turt.changeColor(0.647059, 0.164706, 0.164706);
-        } else if(str[i] == 'B'){
-            turt.changeColor(0.0, 1.0, 0.0);
-        } else if(str[i] == 'C'){
-            turt.changeColor(0.0, 0.5, 0.0);
         } else if(str[i] == '+'){
-            turt.turnRight(72);
+            turt.turnRight(90);
         } else if(str[i] == '-'){
-            turt.turnLeft(72);
+            turt.turnLeft(90);
         } else if(str[i] == '['){
             turt.pushState();
         } else if(str[i] == ']'){

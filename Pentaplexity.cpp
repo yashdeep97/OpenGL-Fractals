@@ -1,28 +1,28 @@
 #include "basics.h"
-#include <algorithm>
-#include <string.h>
+#include "turtle.h"
+#include <string>
+#include <unistd.h>
+#include <time.h>
 
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
-
-using namespace std;
+#define SCREEN_WIDTH 1000
+#define SCREEN_HEIGHT 1000
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height); 
 void processInput(GLFWwindow *window);
-void drawPattern(int,int,int);
 
-Basics basics;
+void nextGeneration(string&);
+void drawPatternFromString(string,int,int);
 
 int main(void)
 {
     GLFWwindow* window;
-
+    srand(time(0));
     /* Initialize the library */
     if (!glfwInit())
         return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Hello World", NULL, NULL);
+    window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Shrub", NULL, NULL);
     if (window == NULL)
     {
 		cout<<"Failed to create window"<<endl;
@@ -42,19 +42,21 @@ int main(void)
 
 	// glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
     
-    string axiom = "A";
-
-
+    string axiom = "F++F++F++F++F";
+    int i=0;
+    
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
-        
 		// glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
-
-        drawPattern(250,250,200);
-        
+        drawPatternFromString(axiom,100,500);
+        if(i<4){
+            nextGeneration(axiom);
+            i++;
+            sleep(1);
+        }
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
@@ -81,12 +83,42 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 }
 
-void drawPattern(int x, int y, int d){
-    basics.drawCircle(x,y,d/2);
-    if(d>10){
-        drawPattern(x+d/2, y, d/2);
-        drawPattern(x-d/2, y, d/2);
-        drawPattern(x, y+d/2, d/2);
-        drawPattern(x, y-d/2, d/2);
+void nextGeneration(string& str){
+    int i = 0;
+    string newstr = "";
+    while(i < str.length()){
+        if(str[i] == 'F'){
+            newstr += "F++F++F|F-F++F";
+        } else {
+            newstr += str[i];
+        }
+        i++;
+    }
+    str = newstr;
+}
+
+void drawPatternFromString(string str, int x, int y){
+    
+    Turtle turt;
+    turt.setPosition(x,y,36);
+    int length = 10;
+    for(int i = 0; i < str.length(); i++)
+    {
+        if(str[i] == 'F'){
+            turt.forward(length);
+        } else if(str[i] == '+'){
+            turt.turnRight(36);
+        } else if(str[i] == '-'){
+            turt.turnLeft(36);
+        } else if(str[i] == '|'){
+            turt.turnLeft(180);
+        } else if(str[i] == '['){
+            turt.pushState();
+        } else if(str[i] == ']'){
+            turt.popState();
+        }
+        
+        
+        
     }
 }
