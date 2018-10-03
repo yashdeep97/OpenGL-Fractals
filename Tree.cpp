@@ -112,6 +112,7 @@ void drawPatternFromString(string str){
     
     Turtle turt;
     turt.setPosition(500,0,90);
+    turt.changeWidth(2);
     stack <int> lengthStack;
     int length = 200;
     for(int i = 0; i < str.length(); i++)

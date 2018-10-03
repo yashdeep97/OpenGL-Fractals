@@ -13,7 +13,7 @@
     left: 0;
     background-color: #111;
     overflow-x: hidden;
-    padding-top: 60px;
+    padding-top: 30px;
 }
 
 /* The navigation menu links */
@@ -102,4 +102,9 @@ img{
     position: absolute;
     bottom: 100px;
     margin-left: 20px;
+}
+
+.thumbnail{
+    height: 300px;
+    width: 300px;
 }
