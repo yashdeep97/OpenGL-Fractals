@@ -9,19 +9,26 @@ using namespace std;
 
 class Basics{
     private:
-        GLfloat r = 1.0, g = 1.0, b = 1.0;
-        GLdouble w = 1.0;
+        GLfloat r = 1.0, g = 1.0, b = 1.0; //default value for the color variables
+        GLdouble w = 1.0; // default value
     public:
+        // Set color of the elements to be drawn next
+        // @param red : red intensity
+        // @param green : green intensity
+        // @param blue : blue intensity
         void setColor(GLfloat red, GLfloat green, GLfloat blue){
             r = red;
             g = green;
             b = blue;
         }
-
+        // Set line width of the elements to be drawn next
+		// @param width : point size
         void setWidth(GLdouble width){
             w = width;
         }
-
+        // Plot a point on the window created using methods from the graphics library
+        // @param x : x coordinate
+        // @param y : y coordinate
         void drawPoint(int x, int y){
             int point[] = { x, y };
             glEnableClientState( GL_VERTEX_ARRAY ); //enable drawing vertex array
@@ -32,6 +39,11 @@ class Basics{
             glDisableClientState( GL_VERTEX_ARRAY );
         }
 
+        // Draw a line using Bresenham's midpoint algorithm
+        // @param x1 : x coordinate of starting point
+        // @param y1 : y coordinate of starting point
+        // @param x2 : x coordinate of last point
+        // @param y2 : y coordinate of last point
         void drawLine(int x1, int y1, int x2, int y2){
             if(x1 > x2 && y1 >= y2){
                 swap(x1, x2);
@@ -136,6 +148,10 @@ class Basics{
             drawPoint(xc - y , yc - x) ;
         }
 
+        // Draw a circle using midpoint algorithm
+        // @param xc : x coordinate of center
+        // @param yc : y coordinate of center
+        // @param radius : radius of circle
         void drawCircle(int xc , int yc , int radius){
             int x = 0 ;
             int y = radius ;
