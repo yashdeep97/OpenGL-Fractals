@@ -8,4 +8,4 @@ Computer Graphics Assignment 1
 + cd build/
 + cmake ..
 + make
-Run the generated executable files.
++ Run the generated executable files.
