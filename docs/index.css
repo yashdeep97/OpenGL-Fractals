@@ -18,7 +18,17 @@
 
 /* The navigation menu links */
 .sidenav a {
-    padding: 8px 8px 8px 0px;
+    padding: 8px 8px 0px 0px;
+    padding-left: 20%;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav ul li a {
+    padding: 0px 0px 0px 0px;
     padding-left: 20%;
     text-decoration: none;
     font-size: 25px;
@@ -82,7 +92,7 @@ img{
         margin-left: 30%;
         padding: 20px;
     }
-} 
+}
 
 .doneBy{
     color: #818181;

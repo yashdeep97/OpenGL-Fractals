@@ -12,23 +12,136 @@
 <body data-spy="scroll" data-target=".sidenav" data-offset="60">
 
 <div id="mySidenav" class="sidenav">
-  <a href="#inToPost">Infix To Postfix</a>
-  <a href="#binaryTree">Binary Parse Tree</a>
-  <a href="#traversal">Tree Traversal</a>
-  <a href="#output">Output</a>
-  <a href="#analysis">Analysis</a>
+<!-- <h1>Contents</h1> -->
+  <a href="#Headerfiles">Header Files</a>
+  <ul>
+<li><a href="#basics">basics.h</a></li>
+<li><a href="#turtle">turtle.h</a></li>
+</ul>
+  <a href="#Fractals">Fractals</a>
+  <ul>
+<li><a href="#basics">Recursion</a></li>
+<li><a href="#turtle">L-Systems</a></li>
+</ul>
   <div class="pos-bottom doneBy">
     <h2 class="doneBy">Done By:</h2>
     <ul>
-      <li>Abhinav Kumar 2015B5A70674H</li>
-      <li>Shivam Bhagat 2015B5A70460</li>
-      <li>Yashdeep Thorat 2015B5A7675H</li>
+      <li>Yashdeep Thorat 2015B5A70675H</li>
+	  <li>Yash Gupta 2015AAPS0270H</li>
+	  <li>Aditi Sharma 2015B4A70649H</li>
     </ul>
   </div>
 </div>
 
 <div id="main">
-  <h1 id="inToPost">Converting Infix To Postfix</h1>
+  <h1 id="Headerfiles">Header Files</h1>
+  <h2 id="basics">basics.h</h2>
+	<p>
+		This header file contains a class with all the code necessary to draw the basic elements
+		like points, lines and circles with the given inputs. It also includes the header file <b>glfw3</b>.
+		<pre>
+		  <code>
+			class Basics{
+				private:
+					GLfloat r = 1.0, g = 1.0, b = 1.0;  //default value for the color variables
+					GLdouble w = 1.0;  // default value
+				public:
+					// Set color of the elements to be drawn next
+					// @param red : red intensity
+					// @param green : green intensity
+					// @param blue : blue intensity
+					void setColor(GLfloat red, GLfloat green, GLfloat blue){}
+
+					// Set line width of the elements to be drawn next
+					// @param width : point size
+					void setWidth(GLdouble width){}
+
+					// Plot a point on the window created using methods from the graphics library
+					// @param x : x coordinate
+					// @param y : y coordinate
+					void drawPoint(int x, int y){}
+
+					// Draw a line using Bresenham's midpoint algorithm
+					// @param x1 : x coordinate of starting point
+					// @param y1 : y coordinate of starting point
+					// @param x2 : x coordinate of last point
+					// @param y2 : y coordinate of last point
+					void drawLine(int x1, int y1, int x2, int y2){}
+
+					// Draw a circle using midpoint algorithm
+					// @param xc : x coordinate of centre
+					// @param yc : y coordinate of centre
+					// @param radius : radius of circle
+					void drawCircle(int xc , int yc , int radius){}
+			};
+		  </code>
+		</pre>
+	</p>
+  <h2 id="turtle">turtle.h</h2>
+  <p>
+  	This header file contains a class which has methods for implementing turtle graphics
+	.
+  	<pre>
+  	  <code>
+		struct position{
+			int x; 		// x coordinate of turtle
+			int y; 		// y coordinate of turtle
+			int a; 		// angle of turtle with x axis
+		};
+
+		class Turtle{
+			private:
+				stack <position> saved;		// stack for saving position of turtle (for branching)
+				int currentX, currentY;		// current x and y coordinate of turtle
+				int angle;					// current angle of the turtle
+				Basics basics;				// object of Basics class
+			public:
+				// Set position of turtle to start drawing
+				// @param x : x coordinate of starting point
+				// @param y : y coordinate of starting point
+				// @param a : angle to begin drawing with
+				void setPosition(int x, int y, int a){}
+
+				// move turtle forward (with the predefined angle) and draw its path
+				// @param l : length to move forward
+				void forward(int l){}
+
+				// Turn turtle right by given angle
+				// @param a : angle
+				void turnRight(int a){}
+
+				// Turn turtle left by given angle
+				// @param a : angle
+				void turnLeft(int a){}
+
+				// Push current position of turtle into stack
+				void pushState(){}
+
+				// Pop from stackand set current position to it
+				void popState(){}
+
+				// Change color of path being drawn
+				// @param r : red intensity
+				// @param g : green intensity
+				// @param b : blue intensity
+				void changeColor(GLfloat r, GLfloat g, GLfloat b){}
+
+				// Set width of path to be drawn
+				// @param w : width
+				void changeWidth(GLdouble w){}
+
+				// Draw circle of radius r
+				// @param r : radius
+				void makeCircle(int r){}
+		};
+  	  </code>
+  	</pre>
+  </p>
+
+  <h1 id="Fractals">Fractals</h1>
+  <h2 id="Recursion">Using Recursion</h2>
+
+  <h2 id="Lsystems">Using L-systems</h2>
   <p>
   	To make a postfix expression from infix we use the function:
   </p>
@@ -38,7 +151,7 @@
     </code>
   </pre>
   <p>
-  Here, <b>lengthInfix</b> denotes the length of the infix string, <b>infix[ ]</b> is the infix string, <b>lengthPostStack</b> points to the postfix string length and <b>postStack</b> is an array in which we add the characters in postfix order.  
+  Here, <b>lengthInfix</b> denotes the length of the infix string, <b>infix[ ]</b> is the infix string, <b>lengthPostStack</b> points to the postfix string length and <b>postStack</b> is an array in which we add the characters in postfix order.
   </p>
   <p>
     We assign ranks to all the operators according to their precedence. Create a temporary stack: <b>workStack[ ]</b>.
@@ -47,7 +160,7 @@
     To convert from infix to postfix iterate on the infix string and execute the following steps:
     <ul type="disc">
       <li>
-        If the character is an operand, add it to the postfix string directly. 
+        If the character is an operand, add it to the postfix string directly.
       </li>
       <li>
         If the character is an operator, check its rank. Push the operator to the workStack if it's rank is greater than the rank of the operator that is at the top of stack or if the workStack is empty. Otherwise pop all the operators from the workStack and add them to postfix string while the rank of the operator at the top of the stack is greater than or equal to the rank of the current operator.
@@ -63,118 +176,6 @@
       Thus the postfix string contains the postfix expressions.
     </p>
   </p>
-
-  <h1 id="binaryTree">Converting Postfix Expression into a rooted Binary Parse Tree</h1>
-  <p>
-    We make the tree using nodes. Each node is a pointer to the struct which contains a character (operator or operand) and pointers to the left child and right child of the tree:
-  </p>
-  <p>
-  	  <pre>
-        <code>
-    struct node{
-        struct node* leftPointer;
-        struct node* rightPointer;
-        char data;
-    };
-        </code>
-      </pre>
-  </p>
-  <p>
-    Declare a function giveParseTree():
-  </p>
-  <pre>
-    <code>
-      struct node* giveParseTree(int lengthStack, char postOrderStack[ ])
-    </code>
-  </pre>
-  <p>
-    The above function returns the pointer to the root node of the Binary Tree. The first parameter <b>lengthStack</b> denotes the length of the postfix string and <b>postOrderStack[ ]</b> denotes the postfix string. <br>
-    Then initialize a stack namely nodeStack of maximum length eqaul to lengthStack.<br>
-    After that we iterate for all characters of the postfix string:
-    <ul type="disc">
-      <li>
-        If character is an atomic preposition, then push a node to the stack with both left and right pointers as NULL
-        stack and increament the stack pointer.
-      </li>
-      <li>
-        If the character is NOT(~) then create a node with left pointer as NULL and the right pointer points to the node that is popped from the top of stack. This node is then pushed to the stack.
-      </li>
-      <li>
-        If the character is a binary operator then create a node whose right pointer points to the node that is popped from top of stack and left pointer points to the second node that is popped from the stack. This node is then pushed to the stack. 
-      </li>
-    </ul>
-  </p>
-  <p>
-    Thus, finally we have only one node remaining in the stack which is the root node of the tree.
-  </p>
-  <br>
-  <div class="imageContainer">
-    <img src="./images/maketree.gif" height="500px" width="500px" alt="Tree animation">
-  </div>
-
-  <h1 id="traversal">Traversing binary tree to output Infix Expression</h1>
-  <h2>Inorder Traversal</h2>
-  <p>
-  	We can get the infix notation from the binary parse tree by using inorder traversal.<br>
-  	Inorder traversal contains the following steps:
-  	<ul type="disc">
-  		<li>Traverse Left Subtree</li>
-  		<li>Print current node</li>
-  		<li>Traverse Right Subtree</li>
-  	</ul>
-  </p>
-  <br>
-  <p>
-  	A recursive function <b>printInfix(struct node* node)</b> is used to traverse each sub tree.<br>
-  </p>
-
-  <pre>
-  	<code>
-void printInfix(struct node* node){
-    if(node == NULL){                            // if we reach a NULL node (child of a leaf) then return
-        return;
-    }
-    printInfix(node->leftPointer);           // traverse left subtree 
-    printf("%c ", node->data);               // print Current node data
-    printInfix(node->rightPointer);        // traverse right subtree
-}
-  	</code>
-  </pre>
-  <div class="imageContainer">
-    <img src="./images/parsetree.gif" height="500px" width="500px" alt="Tree Treaversal animation">
-  </div>
-
-
-  <h1 id="output">Output</h1>
-  <div class="imageContainer">
-    <img src="./images/output/1.png" alt="Output pics">
-  </div>
-  <div class="imageContainer">
-    <img src="./images/output/2.png" alt="Output pics">
-  </div>
-  <div class="imageContainer">
-    <img src="./images/output/3.png" alt="Output pics">
-  </div>
-  <div class="imageContainer">
-    <img src="./images/output/4.png" alt="Output pics">
-  </div>
-  <div class="imageContainer">
-    <img src="./images/output/5.png" alt="Output pics">
-  </div>
-
-  <h1 id="analysis">Analysis</h1>
-  <div class="imageContainer">
-    <img src="./images/analysis/1.png" alt="analysis pics">
-  </div>
-  <div class="imageContainer">
-    <img src="./images/analysis/2.png" alt="analysis pics">
-  </div>
-  <div class="imageContainer">
-    <img src="./images/analysis/3.png" alt="analysis pics">
-  </div>
-  <div class="imageContainer">
-    <img src="./images/analysis/4.png" alt="analysis pics">
-  </div>
 
 </div>
 
